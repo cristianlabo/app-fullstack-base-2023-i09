@@ -1,5 +1,9 @@
 
 var M;
+
+
+
+
 class Main implements EventListenerObject{
     public usuarios: Array<Usuario>= new Array<Usuario>();
   
@@ -11,7 +15,7 @@ class Main implements EventListenerObject{
             console.log(u.mostrar(),this.usuarios.length);
         }
     }
-    private buscarDevices() {
+    public buscarDevices() {
         
         let xmlRequest = new XMLHttpRequest();
         
@@ -121,6 +125,9 @@ class Main implements EventListenerObject{
         let elemento = <HTMLElement>object.target;
         
         
+
+        
+
         if ("btnListar" == elemento.id) {
             this.buscarDevices();
 
@@ -147,8 +154,10 @@ window.addEventListener("load", () => {
     var instances = M.Modal.init(elemsModal, "");
 
     let main1: Main = new Main();
+
+    main1.buscarDevices(); //
+
     let boton = document.getElementById("btnListar");
-    
     boton.addEventListener("click", main1);   
 
     let botonGuardar = document.getElementById("btnGuardar");
