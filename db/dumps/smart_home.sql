@@ -41,6 +41,12 @@ CREATE TABLE `Devices` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
+-- delete Table for table `Devices`
+--
+
+--delete from Devices;  
+
+--
 -- Dumping data for table `Devices`
 --
 

@@ -64,6 +64,7 @@ class Main implements EventListenerObject{
                         checkbox.addEventListener("click", this);
                     }
 
+
                 }else{
                     console.log("no encontre nada");
                 }
@@ -121,6 +122,40 @@ class Main implements EventListenerObject{
         
     }
 
+
+    private cargarDevice(): void{
+
+        let xmlRequest = new XMLHttpRequest();
+
+        xmlRequest.onreadystatechange = () => {
+            if (xmlRequest.readyState == 4) {
+                if (xmlRequest.status == 200) {
+                    console.log("llego resputa",xmlRequest.responseText);        
+                } else {
+                    alert("Salio mal la consulta");
+                }
+            }
+            
+            
+
+        }
+        
+       
+        xmlRequest.open("POST", "http://localhost:8000/device", true)
+        xmlRequest.setRequestHeader("Content-Type", "application/json");
+        let s = {
+            id: 7,
+            name: "Lampara 3",
+            description: "Luz baño",
+            state: 0,
+            type: 0
+        };
+    
+        xmlRequest.send(JSON.stringify(s));
+        
+        
+    }
+
     handleEvent(object: Event): void {
         let elemento = <HTMLElement>object.target;
         
@@ -129,12 +164,21 @@ class Main implements EventListenerObject{
         
 
         if ("btnListar" == elemento.id) {
-            this.buscarDevices();
 
+            console.log("buscar dispositivos");
+            this.buscarDevices();
             
-        } else if ("btnGuardar" == elemento.id) {
-            this.cargarUsuario();
-        } else if (elemento.id.startsWith("cb_")) {
+            
+     /*    } else if ("btnGuardar" == elemento.id) {
+            this.cargarUsuario(); */
+        } else if ("btnAgregar" == elemento.id) {
+
+            console.log("accion boton agregar");
+            
+            this.cargarDevice();
+        }
+        
+        else if (elemento.id.startsWith("cb_")) {
             let checkbox = <HTMLInputElement>elemento;
             console.log(checkbox.getAttribute("nuevoAtt"),checkbox.checked, elemento.id.substring(3, elemento.id.length));
             
@@ -158,13 +202,17 @@ window.addEventListener("load", () => {
     main1.buscarDevices(); //
 
     let boton = document.getElementById("btnListar");
-    boton.addEventListener("click", main1);   
+    boton.addEventListener("click", main1); 
+    
 
-    let botonGuardar = document.getElementById("btnGuardar");
-    botonGuardar.addEventListener("click",main1);
+    /* let botonGuardar = document.getElementById("btnGuardar");
+    botonGuardar.addEventListener("click",main1); */
 
-    let checkbox = document.getElementById("cb");
-    checkbox.addEventListener("click", main1);
+/*     let checkbox = document.getElementById("cb");
+    checkbox.addEventListener("click", main1); */
+
+    let botonAgregar = document.getElementById("btnAgregar");
+    botonAgregar.addEventListener("click",main1);
     
 
 
