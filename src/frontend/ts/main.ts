@@ -42,7 +42,7 @@ class Main implements EventListenerObject{
                         <div class="switch">
 
                         <a class="waves-effect waves-light btn modal-trigger" href="#modal1" >Actualizar</a> 
-                        <button class="btn waves-effect waves-light button-view" id="btn_Act_${d.id}" >Actualizar</button>
+                      
                         <button class="btn waves-effect waves-light button-view" id="btn_Eli_${d.id}" >Eliminar</button>
 
 
@@ -71,6 +71,7 @@ class Main implements EventListenerObject{
                        
                         ul.innerHTML += itemList;
 
+                        /*   <button class="btn waves-effect waves-light button-view" id="btn_Act_${d.id}" >Actualizar</button> */
                     
 
                         /* itemList+=` <!-- Modal Structure -->
@@ -102,8 +103,9 @@ class Main implements EventListenerObject{
                     }
                     for (let d of datos) {
                         let checkbox = document.getElementById("cb_" + d.id);
-
                         checkbox.addEventListener("click", this);
+                        let botonEliminar = document.getElementById("btn_Eli_" + d.id);
+                        botonEliminar.addEventListener("click", this);
                     }
 
 
@@ -174,6 +176,36 @@ class Main implements EventListenerObject{
         xmlRequest.send(JSON.stringify(s)); */
         xmlRequest.send();
     }
+
+    private ejecutarDelete(id:number) {
+        let xmlRequest = new XMLHttpRequest();
+
+        xmlRequest.onreadystatechange = () => {
+            if (xmlRequest.readyState == 4) {
+                if (xmlRequest.status == 200) {
+                    console.log("llego resputa",xmlRequest.responseText);        
+                } else {
+                    alert("Salio mal la consulta");
+                }
+            }
+            
+            
+
+        }
+        
+       
+        xmlRequest.open("DELETE", `http://localhost:8000/device/${id}`, true)
+        xmlRequest.setRequestHeader("Content-Type", "application/json");
+       
+   /*      let s = {
+            id: id,
+            state: state   };
+
+            console.log(id);
+        xmlRequest.send(JSON.stringify(s)); */
+        xmlRequest.send();
+    }
+
 
 
     private cargarUsuario(): void{
@@ -261,6 +293,12 @@ class Main implements EventListenerObject{
             //this.ejecutarPost(parseInt(checkbox.getAttribute("nuevoAtt")),checkbox.checked);
             console.log("checkbox de estado");
             this.ejecutarPut(parseInt(checkbox.getAttribute("nuevoAtt")),checkbox.checked);
+        }
+
+        else if (elemento.id.startsWith("btn_Eli_")) {
+            let botonEliminar = <HTMLInputElement>elemento;
+            console.log("eliminar dispositivo");
+            this.ejecutarDelete(parseInt(elemento.id.substring(8, elemento.id.length)));
         }
 
     }

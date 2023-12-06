@@ -62,6 +62,29 @@ app.put("/device/:id/:state",(req,res,next)=>{
   
   });
 
+  app.delete("/device/:id",(req,res,next)=>{
+    
+
+
+    console.log("se ejecuto el delete ", req.params.id  ) ;
+   
+    
+    utils.query(`DELETE  from Devices  where id = ${req.params.id} `,(err,rsp,fields)=>{
+          if(err==null){
+    //          utils.query(`COMMIT;`);
+              console.log("rsp",rsp);
+              res.status(200).send(JSON.stringify(rsp));
+          }else{
+              console.log("err",err);
+              res.status(409).send(err);
+          }
+          
+          //console.log(fields);
+      });
+  
+  });
+
+
 
 app.post("/device",(req,res,next)=>{
   /*   console.log("Llego el post",
