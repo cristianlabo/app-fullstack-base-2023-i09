@@ -44,7 +44,7 @@ CREATE TABLE `Devices` (
 -- delete Table for table `Devices`
 --
 
---delete from Devices;  
+delete from Devices;  
 
 --
 -- Dumping data for table `Devices`
