@@ -36,10 +36,11 @@
 
                 
                        <!--  <a class="btn-floating btn-large waves-effect waves-light" id="btnAgregar"><i class="material-icons">add</i></a> -->
+                       
+
+
+                    <div id="lista" miAtt="true" class="col s12 m12 l12"  >
                         <button class="btn waves-effect waves-light button-view" id="btnAgregar" name="hello_button">Agregar</button>
-
-
-                    <div id="lista" miAtt="true" class="col s12 m12 l12" >
                         <ul class="collection" id="listaDisp" >
                         </ul>
                     </div>
@@ -56,25 +57,33 @@
                       </p>
 
                     -->
-                      <!--  <a class="waves-effect waves-light btn modal-trigger" href="#modal1">Modal</a> -->
+                    <!--    <a class="waves-effect waves-light btn modal-trigger" href="#modal1">Modal</a> -->
 
-                    <!-- Modal Structure 
+                    id: number;
+                    name: string;
+                    description: string;
+                    state: boolean;
+                    type: number;
+
+                    <!-- Modal Structure -->
                     <div id="modal1" class="modal">
                         <div class="modal-content">
                             <div class="col s12 m6 l6">
-                                <h1>Cargar usuario</h1>
-                                <label for="iNombre">Nombre de usuario</label>
-                                <input id="iNombre" type="text" value="" placeholder="jlopez" />
+                                <h1>Actualizar Dispositivo</h1>
+                                <label for="iName">Nombre</label>
+                                <input id="iName" type="text" value="" placeholder="nombre" />
+                                <label for="iDescription">Descripcion</label>
+                                <input id="iDescription" type="text" value="" placeholder="Description" />
 
-                                <div class="input-field">
+                                <!-- <div class="input-field">
                                     <input id="iPassword" type="password" class="validate">
                                     <label for="iPassword">Password</label>
-                                </div>
+                                </div> -->
                                 
                                 <p>
                                     <label>
                                     <input type="checkbox"  />
-                                    <span>Recordar usuario y contraseña</span>
+                                    <span>State</span>
                                     </label>
                                 </p>
                                 <p id="pInfo"  ></p>
@@ -83,7 +92,7 @@
                             </div>
                         </div>
                     
-                    </div> -->
+                    </div> 
                    
                <!--     <div class="input-field col s12">
                         <select>

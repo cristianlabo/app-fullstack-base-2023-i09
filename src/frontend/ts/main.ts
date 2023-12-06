@@ -30,8 +30,9 @@ class Main implements EventListenerObject{
                     let ul = document.getElementById("listaDisp"); 
 
                     for (let d of datos) {
+                       
                         let itemList =
-                            ` <li class="collection-item avatar">
+                            ` <li class="collection-item avatar" >
                         <img src="./static/images/lightbulb.png" alt="" class="circle">
                         <span class="title">${d.name}</span>
                         <p>
@@ -39,14 +40,25 @@ class Main implements EventListenerObject{
                         </p>
                         <a href="#!" class="secondary-content">
                         <div class="switch">
+
+                        <a class="waves-effect waves-light btn modal-trigger" href="#modal1" >Actualizar</a> 
+                        <button class="btn waves-effect waves-light button-view" id="btn_Act_${d.id}" >Actualizar</button>
+                        <button class="btn waves-effect waves-light button-view" id="btn_Eli_${d.id}" >Eliminar</button>
+
+
+
+                        
+
+                        
                         <label>
                           Off
                           <input type="checkbox"`;
+                         
                           itemList +=`nuevoAtt="${d.id}" id="cb_${d.id}"`
                         if (d.state) {
                             itemList+= ` checked `
                         }
-                        
+                       
                         itemList+= `>
                           <span class="lever"></span>
                           On
@@ -54,8 +66,38 @@ class Main implements EventListenerObject{
                       </div>
                         </a>
                       </li>`
+
+                      
                        
                         ul.innerHTML += itemList;
+
+                    
+
+                        /* itemList+=` <!-- Modal Structure -->
+                        <div id="modal${d.id}" class="modal">
+                            <div class="modal-content">
+                                <div class="col s12 m6 l6">
+                                    <h1>Cargar usuario</h1>
+                                    <label for="iNombre">Nombre de usuario</label>
+                                    <input id="iNombre" type="text" value="" placeholder="jlopez" />
+    
+                                    <div class="input-field">
+                                        <input id="iPassword" type="password" class="validate">
+                                        <label for="iPassword">Password</label>
+                                    </div>
+                                    
+                                    <p>
+                                        <label>
+                                        <input type="checkbox"  />
+                                        <span>Recordar usuario y contraseña</span>
+                                        </label>
+                                    </p>
+                                    <p id="pInfo"  ></p>
+                                    
+                                    <button id="btnGuardar" class="modal-close  btn">Guardar</button>
+                                </div>
+                            </div>                       
+                        </div> `;  */
 
                     }
                     for (let d of datos) {
@@ -97,8 +139,42 @@ class Main implements EventListenerObject{
         let s = {
             id: id,
             state: state   };
+
+       
         xmlRequest.send(JSON.stringify(s));
     }
+
+
+
+    private ejecutarPut(id:number,state:boolean) {
+        let xmlRequest = new XMLHttpRequest();
+
+        xmlRequest.onreadystatechange = () => {
+            if (xmlRequest.readyState == 4) {
+                if (xmlRequest.status == 200) {
+                    console.log("llego resputa",xmlRequest.responseText);        
+                } else {
+                    alert("Salio mal la consulta");
+                }
+            }
+            
+            
+
+        }
+        
+       
+        xmlRequest.open("PUT", `http://localhost:8000/device/${id}/${state}`, true)
+        xmlRequest.setRequestHeader("Content-Type", "application/json");
+       
+   /*      let s = {
+            id: id,
+            state: state   };
+
+            console.log(id);
+        xmlRequest.send(JSON.stringify(s)); */
+        xmlRequest.send();
+    }
+
 
     private cargarUsuario(): void{
         let iNombre =<HTMLInputElement> document.getElementById("iNombre");
@@ -182,7 +258,9 @@ class Main implements EventListenerObject{
             let checkbox = <HTMLInputElement>elemento;
             console.log(checkbox.getAttribute("nuevoAtt"),checkbox.checked, elemento.id.substring(3, elemento.id.length));
             
-            this.ejecutarPost(parseInt(checkbox.getAttribute("nuevoAtt")),checkbox.checked);
+            //this.ejecutarPost(parseInt(checkbox.getAttribute("nuevoAtt")),checkbox.checked);
+            console.log("checkbox de estado");
+            this.ejecutarPut(parseInt(checkbox.getAttribute("nuevoAtt")),checkbox.checked);
         }
 
     }
@@ -208,8 +286,8 @@ window.addEventListener("load", () => {
     /* let botonGuardar = document.getElementById("btnGuardar");
     botonGuardar.addEventListener("click",main1); */
 
-/*     let checkbox = document.getElementById("cb");
-    checkbox.addEventListener("click", main1); */
+    // let checkbox = document.getElementById("cb");
+    //checkbox.addEventListener("click", main1); 
 
     let botonAgregar = document.getElementById("btnAgregar");
     botonAgregar.addEventListener("click",main1);

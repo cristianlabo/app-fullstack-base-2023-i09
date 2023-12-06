@@ -37,6 +37,32 @@ app.get("/otraCosa/:id/:algo",(req,res,next)=>{
 });
 
 
+app.put("/device/:id/:state",(req,res,next)=>{
+    
+
+   
+    let  estado = !req.params.state;
+    console.log("se ejecuto el put ", req.body.id  ) ;
+    console.log("se ejecuto el put ", req.body.state ) ;
+    console.log("se ejecuto el put "+ estado +" " + req.params.id  +" " +req.params.state) ;
+
+    
+    utils.query(`UPDATE  Devices SET  state = ${req.params.state} where id = ${req.params.id} `,(err,rsp,fields)=>{
+          if(err==null){
+    //          utils.query(`COMMIT;`);
+              console.log("rsp",rsp);
+              res.status(200).send(JSON.stringify(rsp));
+          }else{
+              console.log("err",err);
+              res.status(409).send(err);
+          }
+          
+          //console.log(fields);
+      });
+  
+  });
+
+
 app.post("/device",(req,res,next)=>{
   /*   console.log("Llego el post",
     "UPDATE Devices SET state = "+req.body.state+" WHERE id = "+req.body.id);
@@ -46,9 +72,10 @@ app.post("/device",(req,res,next)=>{
         res.status(200).send("se guardo el dispositivo");
     }*/ 
 
+  //  utils.query(`START TRANSACTION;`);
     utils.query(`INSERT INTO Devices (name,description,state,type) VALUES("${req.body.name}","${req.body.description}",${req.body.state},${req.body.type})`,(err,rsp,fields)=>{
         if(err==null){
-            
+  //          utils.query(`COMMIT;`);
             console.log("rsp",rsp);
             res.status(200).send(JSON.stringify(rsp));
         }else{
