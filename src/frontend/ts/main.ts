@@ -38,18 +38,13 @@ class Main implements EventListenerObject{
                         <p>
                          ${d.description}
                         </p>
-                        <a href="#!" class="secondary-content">
-                        <div class="switch">
 
                         <a class="waves-effect waves-light btn modal-trigger" href="#modal1" >Actualizar</a> 
-                      
                         <button class="btn waves-effect waves-light button-view" id="btn_Eli_${d.id}" >Eliminar</button>
 
-
-
-                        
-
-                        
+                        <a href="#!" class="secondary-content">
+                       
+                        <div class="switch">
                         <label>
                           Off
                           <input type="checkbox"`;
@@ -204,6 +199,10 @@ class Main implements EventListenerObject{
             console.log(id);
         xmlRequest.send(JSON.stringify(s)); */
         xmlRequest.send();
+
+        //location.reload();
+
+       // this.buscarDevices(); 
     }
 
 
@@ -233,6 +232,10 @@ class Main implements EventListenerObject{
 
     private cargarDevice(): void{
 
+       
+        let iName =<HTMLInputElement> document.getElementById("iName");
+        let iDescription = <HTMLInputElement>document.getElementById("iDescription");
+
         let xmlRequest = new XMLHttpRequest();
 
         xmlRequest.onreadystatechange = () => {
@@ -252,9 +255,10 @@ class Main implements EventListenerObject{
         xmlRequest.open("POST", "http://localhost:8000/device", true)
         xmlRequest.setRequestHeader("Content-Type", "application/json");
         let s = {
-            id: 7,
-            name: "Lampara 3",
-            description: "Luz baño",
+            //name: "Lampara 3",
+            //description: "Luz baño",
+            name: iName.value,
+            description: iDescription.value,
             state: 0,
             type: 0
         };
@@ -301,6 +305,16 @@ class Main implements EventListenerObject{
             this.ejecutarDelete(parseInt(elemento.id.substring(8, elemento.id.length)));
         }
 
+        else if ("btnGuardar" == elemento.id) {
+            let btnGuardar = <HTMLInputElement>elemento;
+            console.log("agregar dispositivo");
+            //this.ejecutarPost(parseInt(elemento.id.substring(8, elemento.id.length)));
+
+            this.cargarDevice();
+        }
+
+
+        // location.reload();
     }
 
 }
@@ -327,8 +341,12 @@ window.addEventListener("load", () => {
     // let checkbox = document.getElementById("cb");
     //checkbox.addEventListener("click", main1); 
 
-    let botonAgregar = document.getElementById("btnAgregar");
-    botonAgregar.addEventListener("click",main1);
+ /*    let botonAgregar = document.getElementById("btnAgregar");
+    botonAgregar.addEventListener("click",main1); */
+
+
+    let botonGuardar = document.getElementById("btnGuardar");
+    botonGuardar.addEventListener("click",main1);
     
 
 

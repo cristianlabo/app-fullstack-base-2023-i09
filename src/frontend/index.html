@@ -40,7 +40,9 @@
 
 
                     <div id="lista" miAtt="true" class="col s12 m12 l12"  >
-                        <button class="btn waves-effect waves-light button-view" id="btnAgregar" name="hello_button">Agregar</button>
+                        <!-- <button class="btn waves-effect waves-light button-view" id="btnAgregar" name="hello_button">Agregar</button> -->
+                        <a class="waves-effect waves-light btn modal-trigger" href="#modalAgregar">Agregar</a>
+
                         <ul class="collection" id="listaDisp" >
                         </ul>
                     </div>
@@ -66,29 +68,59 @@
                     type: number; -->
 
                     <!-- Modal Structure -->
-                    <div id="modal1" class="modal">
+                    <div id="modalAgregar" class="modal">
                         <div class="modal-content">
-                            <div class="col s12 m6 l6">
-                                <h1>Actualizar Dispositivo</h1>
+                            <div class="col s12 m12 l12">
+                                <h3>Agregar Dispositivo</h3>
                                 <label for="iName">Nombre</label>
                                 <input id="iName" type="text" value="" placeholder="nombre" />
                                 <label for="iDescription">Descripcion</label>
-                                <input id="iDescription" type="text" value="" placeholder="Description" />
+                                <input id="iDescription" type="text" value="" placeholder="Descripcion" />
+
+
+
+                               <!--  <a href="#!" class="secondary-content">
+                       
+                                   
+                                </a> -->
+
+                                <div class="switch">
+                                    <label>
+                                        Off
+                                        <input type="checkbox"`;`checked` id="cb_Agregar">
+                                        <span class="lever"></span>
+                                        On
+                                    </label>
+                              </div>
+                                
+                                <div class="input-field col s12 m12 l12">
+
+                                    <label>Type</label>
+                                    <select>
+                                    <!--   <option value="" disabled selected>Choose your option</option> -->
+                                      <option value="0">Luces</option>
+                                      <option value="1">Tomas</option>
+                                    </select>
+                                   
+                                  
+                                </div>
 
                                 <!-- <div class="input-field">
                                     <input id="iPassword" type="password" class="validate">
                                     <label for="iPassword">Password</label>
                                 </div> -->
                                 
-                                <p>
+                              <!--   <p>
                                     <label>
                                     <input type="checkbox"  />
                                     <span>State</span>
                                     </label>
                                 </p>
-                                <p id="pInfo"  ></p>
+                                <p id="pInfo"  ></p> -->
+                                <div>
+                                    <button id="btnGuardar" class="modal-close  btn">Guardar</button>
+                                </div>
                                 
-                                <button id="btnGuardar" class="modal-close  btn">Guardar</button>
                             </div>
                         </div>
                     
