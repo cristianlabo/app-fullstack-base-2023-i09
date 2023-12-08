@@ -235,6 +235,12 @@ class Main implements EventListenerObject{
        
         let iName =<HTMLInputElement> document.getElementById("iName");
         let iDescription = <HTMLInputElement>document.getElementById("iDescription");
+        //let cb_Agregar = <HTMLInputElement>document.getElementById("cb_Agregar");
+        let iselect = <HTMLInputElement>document.getElementById("iselect");
+
+
+        //console.log("switch ",cb_Agregar.value,cb_Agregar.checked);
+        console.log("selectot ",iselect.value);
 
         let xmlRequest = new XMLHttpRequest();
 
@@ -259,8 +265,9 @@ class Main implements EventListenerObject{
             //description: "Luz baño",
             name: iName.value,
             description: iDescription.value,
-            state: 0,
-            type: 0
+            //state: cb_Agregar.checked,
+            state: false,
+            type: iselect.value
         };
     
         xmlRequest.send(JSON.stringify(s));
