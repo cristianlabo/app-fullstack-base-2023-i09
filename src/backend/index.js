@@ -129,6 +129,51 @@ app.post("/device",(req,res,next)=>{
 
 
 
+
+
+app.put("/device",(req,res,next)=>{
+    /*   console.log("Llego el post",
+      "UPDATE Devices SET state = "+req.body.state+" WHERE id = "+req.body.id);
+      if(req.body.name==""){
+          res.status(409).send("no tengo nada que hacer");
+      }else{
+          res.status(200).send("se guardo el dispositivo");
+      }*/ 
+  
+    //  utils.query(`START TRANSACTION;`);
+      utils.query(`UPDATE  Devices SET  name = "${req.body.name}", description = "${req.body.description}" ,type = ${req.body.type} where id = ${req.body.id} `,(err,rsp,fields)=>{
+          if(err==null){
+    //          utils.query(`COMMIT;`);
+              console.log("rsp",rsp);
+              res.status(200).send(JSON.stringify(rsp));
+          }else{
+              console.log("err",err);
+              res.status(409).send(err);
+          }
+          
+          //console.log(fields);
+      });
+  
+      //let  id=1;
+  
+  
+  /*     utils.query(`select * from Devices where id= `+req.body.id,(err,rsp,fields)=>{
+          if(err==null){
+              
+              console.log("rsp",rsp);
+              res.status(200).send(JSON.stringify(rsp));
+          }else{
+              console.log("err",err);
+              res.status(409).send(err);
+          }
+          
+          //console.log(fields);
+      }); */
+  
+  });
+
+
+
 app.get('/devices/', function(req, res, next) {
     /*devices = [
         { 
@@ -156,6 +201,29 @@ app.get('/devices/', function(req, res, next) {
     */
 
     utils.query("select * from Devices ;",(err,rsp,fields)=>{
+        if(err==null){
+            
+            console.log("rsp",rsp);
+            res.status(200).send(JSON.stringify(rsp));
+        }else{
+            console.log("err",err);
+            res.status(409).send(err);
+        }
+        
+        //console.log(fields);
+    });
+
+
+   // res.send(JSON.stringify(devices)).status(200);
+});
+
+
+
+app.get('/device/:id', function(req, res, next) {
+
+    console.log("parametro id ",req.params.id);
+    
+    utils.query(`select * from Devices where id = ${req.params.id} ;`,(err,rsp,fields)=>{
         if(err==null){
             
             console.log("rsp",rsp);

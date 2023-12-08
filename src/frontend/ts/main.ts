@@ -1,7 +1,7 @@
 
 var M;
 
-
+var modalActualizarId:number = 1;
 
 
 class Main implements EventListenerObject{
@@ -39,7 +39,7 @@ class Main implements EventListenerObject{
                          ${d.description}
                         </p>
 
-                        <a class="waves-effect waves-light btn modal-trigger" href="#modal1" >Actualizar</a> 
+                        <a class="waves-effect waves-light btn modal-trigger" href="#modalActualizar" id="modal_Act_${d.id}" >Actualizar</a> 
                         <button class="btn waves-effect waves-light button-view" id="btn_Eli_${d.id}" >Eliminar</button>
 
                         <a href="#!" class="secondary-content">
@@ -101,6 +101,8 @@ class Main implements EventListenerObject{
                         checkbox.addEventListener("click", this);
                         let botonEliminar = document.getElementById("btn_Eli_" + d.id);
                         botonEliminar.addEventListener("click", this);
+                        let modalActualizar = document.getElementById("modal_Act_" + d.id);
+                        modalActualizar.addEventListener("click", this);
                     }
 
 
@@ -275,8 +277,156 @@ class Main implements EventListenerObject{
         
     }
 
+
+
+    private ejecutarPutActualizar(id:number){
+
+       
+        let iName =<HTMLInputElement> document.getElementById("nameActualizar");
+        let iDescription = <HTMLInputElement>document.getElementById("descriptionActualizar");
+        //let cb_Agregar = <HTMLInputElement>document.getElementById("cb_Agregar");
+        let iselect = <HTMLInputElement>document.getElementById("selectActualizar");
+
+
+        //console.log("switch ",cb_Agregar.value,cb_Agregar.checked);
+        console.log("nameActualizar ",iName.value);
+        console.log("descriptionActualizar ", iDescription.value) ;
+        console.log("selector ",iselect.value);
+
+        
+
+        let xmlRequest = new XMLHttpRequest();
+
+        xmlRequest.onreadystatechange = () => {
+            if (xmlRequest.readyState == 4) {
+                if (xmlRequest.status == 200) {
+                    console.log("llego resputa",xmlRequest.responseText);        
+                } else {
+                    alert("Salio mal la consulta");
+                }
+            }
+            
+            
+
+        }
+        
+       
+        xmlRequest.open("PUT", "http://localhost:8000/device", true)
+        xmlRequest.setRequestHeader("Content-Type", "application/json");
+        let s = {
+
+            id: id,
+            //name: "Lampara 3",
+            //description: "Luz baño",
+            name: iName.value,
+            description: iDescription.value,
+            //state: cb_Agregar.checked,
+            state: false,
+            type: iselect.value
+        };
+    
+        xmlRequest.send(JSON.stringify(s));
+        
+        
+    }
+
+    /* private ConsultarSelectId(id:number) {
+
+        let xmlRequest = new XMLHttpRequest();
+                
+                xmlRequest.onreadystatechange = () => {
+            
+                    if (xmlRequest.readyState == 4) {
+                        if(xmlRequest.status==200){
+                            console.log(xmlRequest.responseText, xmlRequest.readyState);    
+                            let respuesta = xmlRequest.responseText;
+                            let datos:Array<Device> = JSON.parse(respuesta);
+                            
+                        
+    
+                            for (let d of datos) {
+                            
+    
+                            }
+    
+                        }else{
+                            console.log("no encontre nada");
+                        }
+                    }
+                    
+                }
+
+                xmlRequest.open("GET", `http://localhost:8000/device/${id}`, true)
+                xmlRequest.setRequestHeader("Content-Type", "application/json");
+                xmlRequest.send();
+    }
+ */
+
+    private ConsultarSelectId(id:number) {
+        let xmlRequest = new XMLHttpRequest();
+
+        xmlRequest.onreadystatechange = () => {
+            if (xmlRequest.readyState == 4) {
+                if (xmlRequest.status == 200) {
+                    console.log("llego resputa",xmlRequest.responseText); 
+                    console.log(xmlRequest.responseText, xmlRequest.readyState);    
+                    let respuesta = xmlRequest.responseText;
+                    let datos:Array<Device> = JSON.parse(respuesta); 
+
+            
+
+                    for (let d of datos) {
+                        console.log("valores: ",d);
+
+                        let iName =<HTMLInputElement> document.getElementById("nameActualizar");
+                        let iDescription = <HTMLInputElement>document.getElementById("descriptionActualizar");
+                        //let cb_Agregar = <HTMLInputElement>document.getElementById("cb_Agregar");
+                        let iselect = <HTMLInputElement>document.getElementById("selectActualizar");
+                        
+    
+                        console.log("valores: ",d.name);
+                        iName.value = d.name;
+                        iDescription.value = d.description;
+                        iselect.value = d.type.toString() ;   
+    
+                    }
+
+                   
+
+
+                } else {
+                    alert("Salio mal la consulta");
+                }
+            }
+            
+            
+
+        }
+        
+       
+        xmlRequest.open("GET", `http://localhost:8000/device/${id}`, true)
+        xmlRequest.setRequestHeader("Content-Type", "application/json");
+       
+   /*      let s = {
+            id: id,
+            state: state   };
+
+            console.log(id);
+        xmlRequest.send(JSON.stringify(s)); */
+        xmlRequest.send();
+
+        //location.reload();
+
+       // this.buscarDevices(); 
+    }
+
+
+    
+
     handleEvent(object: Event): void {
         let elemento = <HTMLElement>object.target;
+        
+
         
         
 
@@ -312,6 +462,20 @@ class Main implements EventListenerObject{
             this.ejecutarDelete(parseInt(elemento.id.substring(8, elemento.id.length)));
         }
 
+         else if (elemento.id.startsWith("modal_Act_")) {
+            let modalActualizar = <HTMLInputElement>elemento;
+            modalActualizarId = parseInt(elemento.id.substring(10, elemento.id.length));
+            console.log("Actualizar modal: ",modalActualizarId);
+            this.ConsultarSelectId(modalActualizarId);
+            //this.ejecutarPutActualizar(parseInt(elemento.id.substring(10, elemento.id.length)));
+        } 
+
+        else if ("btnGuardarActualizar" == elemento.id) {
+            let btnGuardarActualizar = <HTMLInputElement>elemento;
+            console.log("Actualizar dispositivo",modalActualizarId );
+            this.ejecutarPutActualizar(modalActualizarId);
+        }
+
         else if ("btnGuardar" == elemento.id) {
             let btnGuardar = <HTMLInputElement>elemento;
             console.log("agregar dispositivo");
@@ -321,10 +485,15 @@ class Main implements EventListenerObject{
         }
 
 
+
         // location.reload();
     }
 
 }
+
+
+
+
 
     
 window.addEventListener("load", () => {
@@ -332,7 +501,7 @@ window.addEventListener("load", () => {
     var elems = document.querySelectorAll('select');
     M.FormSelect.init(elems, "");
     var elemsModal = document.querySelectorAll('.modal');
-    var instances = M.Modal.init(elemsModal, "");
+    var instances = M.Modal.init(elemsModal,"");
 
     let main1: Main = new Main();
 
@@ -351,6 +520,8 @@ window.addEventListener("load", () => {
  /*    let botonAgregar = document.getElementById("btnAgregar");
     botonAgregar.addEventListener("click",main1); */
 
+    let btnGuardarActualizar = document.getElementById("btnGuardarActualizar");
+    btnGuardarActualizar.addEventListener("click",main1);
 
     let botonGuardar = document.getElementById("btnGuardar");
     botonGuardar.addEventListener("click",main1);
