@@ -152,49 +152,108 @@ En la siguiente ilustración podés ver cómo está organizado el proyecto para 
 
 ## Detalles de implementación 💻
 
-En esta sección podés ver los detalles específicos de funcionamiento del código y que son los siguientes.
+Para la implementacion requerida se realizaron las siguientes tareas:
 
+- Modificacion de los archivos index.html(frontend), main.ts(frontend) e index.js(backend).
+- Se agrego el archivo device.ts
+
+De los archivos antes mencionados se detallan las siguientes cuestiones:
+
+index.html: se crearon los objetos necesarios para el ABM solicitado.                                                                      
+main.ts: se crearon los metodos necesarios para obtener, agregar, eliminar y actualizar dispositivos mediante peticiones al backend.
+index.js: se agregan los metodos necesarios para obtener, agregar,eliminar y actualizar dispositivos en la base de datos.
+device.ts: se creo la clase device con los atributos necesarios para guardar la informacion de los dispositivos.
+
+
+Cuestiones a tener en cuenta:
+
+- No se realizaron validaciones para los datos de entrada a los modales correspondientes a agregar y actualizar dispositivos.
+-
+- No se llego a implementar "dimerizar las luces o regular la apertura de cortinas", se entiende que seria modificar el campo "state" de la base de datos, luego agregar el objeto range(materialize) por cada dispositivo que cumpla con el campo "type" correspondiente, luego crear un evento asociado a este objeto y por ultimo agregar el metodo para actualizar el estado(frontend) medianteuna peticion del tipo PUT al backend para actualizar el dispositivo correspondeinte en la base de datos.
+
+                                                                                   .
+                                                                                                                                                                         
 <details><summary><b>Mira los detalles de implementación</b></summary><br>
 
-### Agregar un dispositivo
+### Consultar un dispositivo                                                                                         
 
-Completá los pasos para agregar un dispositivo desde el cliente web.
+Para agregar un dispositivo desde el cliente web se siguienron los siguientes pasos:
+
+-index.html: creacion de boton "agregar dispositivos".
+-main.ts: crear el metodo "cargarDevice" que se crea un nuevo dispositivo comunicandose con el backend por medio del metodo POST.
+-index.js: crear el metodo "post /device" que insera un registro en la base de datos.
+
 
 ### Frontend
 
-Completá todos los detalles sobre cómo armaste el frontend, sus interacciones, etc.
+Se creo el boton "agregar dispositivos" el cual permite abrir un modal para completar los datos para la creacion del dispositivo(nombre, descripcion y tipo ), luego de presionar el boton "Agregar dispositivo" el frontend envia los datos por medio del metodo POST /device.
 
 ### Backend
 
-Completá todos los detalles de funcionamiento sobre el backend, sus interacciones con el cliente web, la base de datos, etc.
+Se creo el metodo POST en la ruta /device el cual permite realizar un insert sobre la base de datos con los datos obteneidos de la peticion del frontend.
 
-<details><summary><b>Ver los endpoints disponibles</b></summary><br>
 
-Completá todos los endpoints del backend con los metodos disponibles, los headers y body que recibe, lo que devuelve, ejemplos, etc.
+### Agregar un dispositivo
 
-1) Devolver el estado de los dispositivos.
+Para agregar un dispositivo desde el cliente web se siguienron los siguientes pasos:
 
-```json
-{
-    "method": "get",
-    "request_headers": "application/json",
-    "request_body": "",
-    "response_code": 200,
-    "request_body": {
-        "devices": [
-            {
-                "id": 1,
-                "status": true,
-                "description": "Kitchen light"
-            }
-        ]
-    },
-}
-``` 
+-index.html: creacion de boton "agregar dispositivos".
+-main.ts: crear el metodo "cargarDevice" que se crea un nuevo dispositivo comunicandose con el backend por medio del metodo POST.
+-index.js: crear el metodo "post /device" que insera un registro en la base de datos.
 
-</details>
 
-</details>
+### Frontend
+
+Se creo el boton "agregar dispositivos" el cual permite abrir un modal para completar los datos para la creacion del dispositivo(nombre, descripcion y tipo ), luego de presionar el boton "Agregar dispositivo" el frontend envia los datos por medio del metodo POST /device.
+
+### Backend
+
+Se creo el metodo POST en la ruta /device el cual permite realizar un insert sobre la base de datos con los datos obteneidos de la peticion del frontend.
+
+
+
+
+### Eliminar un dispositivo
+
+Para agregar un dispositivo desde el cliente web se siguienron los siguientes pasos:
+
+-index.html: creacion de boton "agregar dispositivos".
+-main.ts: crear el metodo "cargarDevice" que se crea un nuevo dispositivo comunicandose con el backend por medio del metodo POST.
+-index.js: crear el metodo "post /device" que insera un registro en la base de datos.
+
+
+### Frontend
+
+Se creo el boton "agregar dispositivos" el cual permite abrir un modal para completar los datos para la creacion del dispositivo(nombre, descripcion y tipo ), luego de presionar el boton "Agregar dispositivo" el frontend envia los datos por medio del metodo POST /device.
+
+### Backend
+
+Se creo el metodo POST en la ruta /device el cual permite realizar un insert sobre la base de datos con los datos obteneidos de la peticion del frontend.
+
+
+
+
+### Actualizar un dispositivo
+
+Para agregar un dispositivo desde el cliente web se siguienron los siguientes pasos:
+
+-index.html: creacion de boton "agregar dispositivos".
+-main.ts: crear el metodo "cargarDevice" que se crea un nuevo dispositivo comunicandose con el backend por medio del metodo POST.
+-index.js: crear el metodo "post /device" que insera un registro en la base de datos.
+
+
+### Frontend
+
+Se creo el boton "agregar dispositivos" el cual permite abrir un modal para completar los datos para la creacion del dispositivo(nombre, descripcion y tipo ), luego de presionar el boton "Agregar dispositivo" el frontend envia los datos por medio del metodo POST /device.
+
+### Backend
+
+Se creo el metodo POST en la ruta /device el cual permite realizar un insert sobre la base de datos con los datos obteneidos de la peticion del frontend.
+
+
+
+
+
 
 
 ## Tecnologías utilizadas 🛠️

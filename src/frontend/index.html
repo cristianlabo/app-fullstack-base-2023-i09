@@ -8,8 +8,6 @@
       <link type="text/css" rel="stylesheet" href="./static/css/materialize.min.css"  media="screen,projection"/>
       <link type="text/css" rel="stylesheet" href="./static/css/styles.css"  media="screen,projection"/>
       <script type="text/javascript" src="./static/js/materialize.min.js"></script>
-      <script type="text/javascript" src="js/persona.js"></script>
-      <script type="text/javascript" src="js/usuario.js"></script>
       <script type="text/javascript" src="js/device.js"></script>
       <script type="text/javascript" src="js/main.js"></script>
       <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -48,11 +46,11 @@
                     <div id="lista" miAtt="true" class="col s12 m12 l12"  >
 
                         <!--  link modal agregar  -->
-                        <a class="waves-effect waves-light btn modal-trigger" href="#modalAgregar">Agregar</a>
+                        <a class="waves-effect waves-light btn modal-trigger" href="#modalAgregar">Agregar Dispositivos</a>
 
 
                         <!--  lista de dispositivos -->
-                        <ul class="collection" id="listaDisp" > </ul>
+                        <ul class="collection" id="listaDisp" style="color:white;" "> </ul>
 
                     </div>
 
@@ -69,13 +67,13 @@
 
                                 <!-- Nombre dispositivo -->
 
-                                <label for="iName">Nombre</label>
-                                <input id="iName" type="text" value="" placeholder="nombre" />
+                                <label for="nameAgregar">Nombre</label>
+                                <input id="nameAgregar" type="text" value="" placeholder="Nombre" />
 
                                  <!-- Descripcion dispositivo -->
 
-                                <label for="iDescription">Descripcion</label>
-                                <input id="iDescription" type="text" value="" placeholder="Descripcion" />
+                                <label for="descriptionAgregar">Descripcion</label>
+                                <input id="descriptionAgregar" type="text" value="" placeholder="Descripcion" />
 
 
                                  <!-- Selector tipo -->
@@ -83,7 +81,7 @@
                                 <div class="input-field col s12 m12 l12" >
 
                                     <label>Type</label>
-                                    <select id="iselect">
+                                    <select id="selectAgregar">
                                       <option value="0">Luces</option>
                                       <option value="1">Tomas</option>
                                     </select>
@@ -93,7 +91,7 @@
                                  <!-- Boton  Agregar dispositivo -->
 
                                 <div>
-                                    <button id="btnGuardar" class="modal-close  btn">Guardar</button>
+                                    <button id="btnGuardarAgregar" class="modal-close  btn">Agregar Dispositivo</button>
                                 </div>
                                 
                             </div>
@@ -111,17 +109,17 @@
 
                                 <!-- Titulo modal -->
 
-                                <h3>Actualizar Dispositivo</h3>
+                                <h3>Editar Dispositivo</h3>
 
                                 <!-- Nombre dispositivo -->
                                 
                                 <label for="nameActualizar" id = "typeName">Nombre Actual:  </label>
-                                <input id="nameActualizar" type="text" value="" placeholder="nombre actualizar" />
+                                <input id="nameActualizar" type="text" value="" placeholder="Nombre" />
                                 
                                 <!-- Descripcion dispositivo -->
                                 
                                 <label for="descriptionActualizar"  id = "typeDescription" >Descripcion Actual:  </label>
-                                <input id="descriptionActualizar" type="text" value="" placeholder="Descripcion actualizar" />
+                                <input id="descriptionActualizar" type="text" value="" placeholder="Descripcion" />
 
                                 <!-- Selector tipo -->
 
@@ -139,7 +137,7 @@
                                 <!-- Boton  Agregar dispositivo -->
 
                                 <div>
-                                    <button id="btnGuardarActualizar" class="modal-close  btn">Guardar Actualizar</button>
+                                    <button id="btnGuardarActualizar" class="modal-close  btn">Actualizar Dispositivo</button>
                                 </div>
                                 
                             </div>

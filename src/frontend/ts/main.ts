@@ -36,17 +36,23 @@ class Main implements EventListenerObject{
                     for (let d of datos) {
                        
                         let itemList =
-                            ` <li class="collection-item avatar" >
-                        <img src="./static/images/lightbulb.png" alt="" class="circle">
+                            ` <li class="collection-item avatar"  style="background-color: #124580;">`;
                         
-                        <span class="title">
+                            if (d.type === 0) {
+                                itemList+=`<img src="./static/images/luces.png" alt="" class="circle">`;
+                            }
+                            else{
+                                itemList+= `<img src="./static/images/tomas.png" alt="" class="circle">`;
+                            }
+                        
+                            itemList+= `<span class="title" style="background-color: #124580; font-size: 20px;" >
                         ${d.name}
                         </span>
                         <p>
                          ${d.description}
                         </p>
 
-                        <a class="waves-effect waves-light btn modal-trigger" href="#modalActualizar" id="modal_Act_${d.id}" >Actualizar</a> 
+                        <a class="waves-effect waves-light btn modal-trigger" href="#modalActualizar" id="modal_Act_${d.id}" >Editar</a> 
                         <button class="btn waves-effect waves-light button-view" id="btn_Eli_${d.id}" >Eliminar</button>
 
                         <a href="#!" class="secondary-content">
@@ -96,44 +102,15 @@ class Main implements EventListenerObject{
         xmlRequest.send();
     }
 
-// Actualiza estado dispositivo, actualiza el estado de un  dispositivo en la base de datos.
-
-    private ejecutarPost(id:number,state:boolean) {
-        let xmlRequest = new XMLHttpRequest();
-
-        xmlRequest.onreadystatechange = () => {
-            if (xmlRequest.readyState == 4) {
-                if (xmlRequest.status == 200) {
-                    console.log("Llego la respuesta",xmlRequest.responseText);        
-                } else {
-                    alert("Salio mal la consulta!!!");
-                }
-            }
-            
-            
-
-        }
-       
-        xmlRequest.open("POST", "http://localhost:8000/device", true)
-        xmlRequest.setRequestHeader("Content-Type", "application/json");
-       
-        let s = {
-            id: id,
-            state: state   };
-
-       
-        xmlRequest.send(JSON.stringify(s));
-    }
-
 
 // Agregar un diposotivo, agrega el dispositivo en la base de datos.
 
 private cargarDevice(): void{
 
        
-    let iName =<HTMLInputElement> document.getElementById("iName");
-    let iDescription = <HTMLInputElement>document.getElementById("iDescription");        
-    let iselect = <HTMLInputElement>document.getElementById("iselect");
+    let nameAgregar =<HTMLInputElement> document.getElementById("nameAgregar");
+    let descriptionAgregar = <HTMLInputElement>document.getElementById("descriptionAgregar");        
+    let selectAgregar = <HTMLInputElement>document.getElementById("selectAgregar");
 
 
     let xmlRequest = new XMLHttpRequest();
@@ -155,10 +132,10 @@ private cargarDevice(): void{
     xmlRequest.open("POST", "http://localhost:8000/device", true)
     xmlRequest.setRequestHeader("Content-Type", "application/json");
     let s = {
-        name: iName.value,
-        description: iDescription.value,
+        name: nameAgregar.value,
+        description: descriptionAgregar.value,
         state: false,
-        type: iselect.value
+        type: selectAgregar.value
     };
 
     xmlRequest.send(JSON.stringify(s));
@@ -167,7 +144,7 @@ private cargarDevice(): void{
 
 // Eliminar un diposotivo, elimina el dispositivo en la base de datos.
 
-    private ejecutarDelete(id:number) {
+    private eliminarDevice(id:number) {
 
         let xmlRequest = new XMLHttpRequest();
 
@@ -194,7 +171,8 @@ private cargarDevice(): void{
 
 // Actualiza estado dispositivo, actualiza el estado de un  dispositivo en la base de datos.
 
-private ejecutarPut(id:number,state:boolean) {
+private actualizarDeviceState(id:number,state:boolean) {
+
     let xmlRequest = new XMLHttpRequest();
 
     xmlRequest.onreadystatechange = () => {
@@ -218,16 +196,16 @@ private ejecutarPut(id:number,state:boolean) {
 
 // Actualiza nombre-descripcion-tipo dispositivo, actualiza el nombre-descripcion y tipo de un  dispositivo en la base de datos.
 
-    private ejecutarPutActualizar(id:number){
+    private actualizarDevice(id:number){
 
        
-        let iName =<HTMLInputElement> document.getElementById("nameActualizar");
-        let iDescription = <HTMLInputElement>document.getElementById("descriptionActualizar");
-        let iselect = <HTMLInputElement>document.getElementById("selectActualizar");
+        let nameActualizar =<HTMLInputElement> document.getElementById("nameActualizar");
+        let descriptionActualizar = <HTMLInputElement>document.getElementById("descriptionActualizar");
+        let selectActualizar = <HTMLInputElement>document.getElementById("selectActualizar");
 
-        console.log("nameActualizar ",iName.value);
-        console.log("descriptionActualizar ", iDescription.value) ;
-        console.log("selector ",iselect.value);
+        console.log("nameActualizar ",nameActualizar.value);
+        console.log("descriptionActualizar ", descriptionActualizar.value) ;
+        console.log("selector ",selectActualizar.value);
 
         let xmlRequest = new XMLHttpRequest();
 
@@ -250,10 +228,10 @@ private ejecutarPut(id:number,state:boolean) {
         let s = {
 
             id: id,
-            name: iName.value,
-            description: iDescription.value,
+            name: nameActualizar.value,
+            description: descriptionActualizar.value,
             state: false,
-            type: iselect.value
+            type: selectActualizar.value
         };
     
         xmlRequest.send(JSON.stringify(s));
@@ -262,52 +240,52 @@ private ejecutarPut(id:number,state:boolean) {
     }
 
     
-    private ConsultarSelectId(id:number) {
+    private consultaDevice(id:number) {
         let xmlRequest = new XMLHttpRequest();
 
         xmlRequest.onreadystatechange = () => {
             if (xmlRequest.readyState == 4) {
                 if (xmlRequest.status == 200) {
+
                     console.log("Llego la respuesta",xmlRequest.responseText); 
-                    console.log(xmlRequest.responseText, xmlRequest.readyState);    
+                    
                     let respuesta = xmlRequest.responseText;
                     let datos:Array<Device> = JSON.parse(respuesta); 
 
             
-
                     for (let d of datos) {
                         console.log("valores base:",d.type.toString());
 
-                        let iName =<HTMLInputElement> document.getElementById("nameActualizar");
+                        let nameActualizar =<HTMLInputElement> document.getElementById("nameActualizar");
                         let typeName =<HTMLInputElement> document.getElementById("typeName");
 
-
-                        let iDescription = <HTMLInputElement>document.getElementById("descriptionActualizar");
-
+                        let descriptionActualizar = <HTMLInputElement>document.getElementById("descriptionActualizar");
                         let typeDescription = <HTMLInputElement>document.getElementById("typeDescription");
-                        let itypeActualizar = <HTMLInputElement>document.getElementById("typeActualizar");
-                       
-                        let iselect = <HTMLInputElement>document.getElementById("selectActualizar");
+
+                        let typeActualizar = <HTMLInputElement>document.getElementById("typeActualizar");
+                        let selectActualizar = <HTMLInputElement>document.getElementById("selectActualizar");
 
                         let luces = <HTMLInputElement>document.getElementById("luces");
                         let Tomas = <HTMLInputElement>document.getElementById("Tomas");
                         
-                       /*  iselect.addEventListener("change", d.type.toString()); */
+                      
                         
-                       typeName.innerHTML = "Nombre Actual: " + d.name;
-                       typeDescription.innerHTML = "Descripcion Actual: " + d.description;
                         
-                        //document.getElementById("selectActualizar").selected = 'selected';
-                        console.log("valores iselect: ",iselect.value);
-                        iName.value = d.name;
-                        iDescription.value = d.description;
-                        iselect.value = d.type.toString();
+                        
+                       
+                        console.log("valores selectActualizar: ",selectActualizar.value);
+                        nameActualizar.value = d.name;
+                        descriptionActualizar.value = d.description;
+                        selectActualizar.value = d.type.toString();
+
+                        typeName.innerHTML = "Nombre Actual: " + d.name;
+                        typeDescription.innerHTML = "Descripcion Actual: " + d.description;
 
                         if(d.type === 0){
-                            itypeActualizar.value="luces";
+                            typeActualizar.value="luces";
                            
                         }else{
-                            itypeActualizar.value="Tomas";
+                            typeActualizar.value="Tomas";
 
                         }
                         
@@ -317,15 +295,15 @@ private ejecutarPut(id:number,state:boolean) {
                        
                         if(d.type === 0){
                             luces.setAttribute("selected","selected");
-                            itypeActualizar.innerHTML = "type Actual: " + luces.id;
+                            typeActualizar.innerHTML = "type Actual: " + luces.id;
                         }else{
 
                             Tomas.setAttribute("selected","selected");
-                            itypeActualizar.innerHTML  = "type Actual: " + Tomas.id;
+                            typeActualizar.innerHTML  = "type Actual: " + Tomas.id;
 
                         }
             
-                        console.log("valores iselect: ",iselect.value);
+                        console.log("valores selectActualizar: ",selectActualizar.value);
     
                     }
 
@@ -363,17 +341,18 @@ private ejecutarPut(id:number,state:boolean) {
 
         // implementacion boton agregar 
 
-        else if ("btnGuardar" == elemento.id) {
+        else if ("btnGuardarAgregar" == elemento.id) {
             console.log("agregar dispositivo.");
-            let btnGuardar = <HTMLInputElement>elemento;
             this.cargarDevice();
+            setTimeout(()=>{location.reload();},1000);
         }
         // implementacion boton eliminar
 
         else if (elemento.id.startsWith("btn_Eli_")) {
             console.log("eliminar dispositivo.");
-            let botonEliminar = <HTMLInputElement>elemento;
-            this.ejecutarDelete(parseInt(elemento.id.substring(8, elemento.id.length)));
+            this.eliminarDevice(parseInt(elemento.id.substring(8, elemento.id.length)));
+
+            setTimeout(()=>{location.reload();},1000);
            
         }
 
@@ -382,7 +361,8 @@ private ejecutarPut(id:number,state:boolean) {
         else if (elemento.id.startsWith("cb_")) {
             console.log("Activacion dispositivo (estado).");
             let checkbox = <HTMLInputElement>elemento;
-            this.ejecutarPut(parseInt(checkbox.getAttribute("nuevoAtt")),checkbox.checked);
+            this.actualizarDeviceState(parseInt(checkbox.getAttribute("nuevoAtt")),checkbox.checked);
+            setTimeout(()=>{location.reload();},1000);
         }
         
 
@@ -390,16 +370,17 @@ private ejecutarPut(id:number,state:boolean) {
 
         else if (elemento.id.startsWith("modal_Act_")) {
             console.log("Activacion modal guardar actualizar.");
-            let modalActualizar = <HTMLInputElement>elemento;
             modalActualizarId = parseInt(elemento.id.substring(10, elemento.id.length));
-            this.ConsultarSelectId(modalActualizarId);
+            this.consultaDevice(modalActualizarId);
     
         } 
 
         else if ("btnGuardarActualizar" == elemento.id) {
             console.log("Actualizar dispositivo (nombre-descripcion-tipo).");
             let btnGuardarActualizar = <HTMLInputElement>elemento;
-            this.ejecutarPutActualizar(modalActualizarId);
+            this.actualizarDevice(modalActualizarId);
+            setTimeout(()=>{location.reload();},1000);
+            
            
         }
 
@@ -433,8 +414,8 @@ window.addEventListener("load", () => {
 
      // evento boton guardar agregar dispositivo
 
-     let botonGuardar = document.getElementById("btnGuardar");
-     botonGuardar.addEventListener("click",main1);
+     let btnGuardarAgregar = document.getElementById("btnGuardarAgregar");
+     btnGuardarAgregar.addEventListener("click",main1);
     
     // evento boton guardar actualizar dispositivo
 

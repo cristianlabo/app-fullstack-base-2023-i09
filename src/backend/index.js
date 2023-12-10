@@ -35,7 +35,7 @@ app.use(express.static('/home/node/app/static/'));
             res.status(200).send(JSON.stringify(rsp));
         }else{
             console.log("err",err);
-            res.status(409).send(err);
+            res.status(404).send(err);
         }
         
     });
@@ -55,7 +55,7 @@ app.get('/device/:id', function(req, res, next) {
             res.status(200).send(JSON.stringify(rsp));
         }else{
             console.log("err",err);
-            res.status(409).send(err);
+            res.status(404).send(err);
         }
         
     });
@@ -76,7 +76,7 @@ app.get('/device/:id', function(req, res, next) {
             res.status(200).send(JSON.stringify(rsp));
         }else{
             console.log("err",err);
-            res.status(409).send(err);
+            res.status(404).send(err);
         }
         
     });
@@ -99,7 +99,7 @@ app.get('/device/:id', function(req, res, next) {
               res.status(200).send(JSON.stringify(rsp));
           }else{
               console.log("err",err);
-              res.status(409).send(err);
+              res.status(404).send(err);
           }
           
       });
@@ -123,7 +123,7 @@ app.put("/device/:id/:state",(req,res,next)=>{
               res.status(200).send(JSON.stringify(rsp));
           }else{
               console.log("err",err);
-              res.status(409).send(err);
+              res.status(404).send(err);
           }
           
       });
@@ -141,7 +141,7 @@ app.put("/device",(req,res,next)=>{
             res.status(200).send(JSON.stringify(rsp));
         }else{
             console.log("err",err);
-            res.status(409).send(err);
+            res.status(404).send(err);
         }
         
     });
