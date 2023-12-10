@@ -102,6 +102,88 @@ class Main implements EventListenerObject{
         xmlRequest.send();
     }
 
+    private consultaDevice(id:number) {
+        let xmlRequest = new XMLHttpRequest();
+
+        xmlRequest.onreadystatechange = () => {
+            if (xmlRequest.readyState == 4) {
+                if (xmlRequest.status == 200) {
+
+                    console.log("Llego la respuesta",xmlRequest.responseText); 
+                    
+                    let respuesta = xmlRequest.responseText;
+                    let datos:Array<Device> = JSON.parse(respuesta); 
+
+            
+                    for (let d of datos) {
+                        console.log("valores base:",d.type.toString());
+
+                        let nameActualizar =<HTMLInputElement> document.getElementById("nameActualizar");
+                        let typeName =<HTMLInputElement> document.getElementById("typeName");
+
+                        let descriptionActualizar = <HTMLInputElement>document.getElementById("descriptionActualizar");
+                        let typeDescription = <HTMLInputElement>document.getElementById("typeDescription");
+
+                        let typeActualizar = <HTMLInputElement>document.getElementById("typeActualizar");
+                        let selectActualizar = <HTMLInputElement>document.getElementById("selectActualizar");
+
+                        let luces = <HTMLInputElement>document.getElementById("luces");
+                        let Tomas = <HTMLInputElement>document.getElementById("Tomas");
+                        
+                      
+                        
+                        
+                        
+                       
+                        console.log("valores selectActualizar: ",selectActualizar.value);
+                        nameActualizar.value = d.name;
+                        descriptionActualizar.value = d.description;
+                        selectActualizar.value = d.type.toString();
+
+                        typeName.innerHTML = "Nombre Actual: " + d.name;
+                        typeDescription.innerHTML = "Descripcion Actual: " + d.description;
+
+                        if(d.type === 0){
+                            typeActualizar.value="luces";
+                           
+                        }else{
+                            typeActualizar.value="Tomas";
+
+                        }
+                        
+                       
+                        luces.removeAttribute("selected");
+                        Tomas.removeAttribute("selected");
+                       
+                        if(d.type === 0){
+                            luces.setAttribute("selected","selected");
+                            typeActualizar.innerHTML = "type Actual: " + luces.id;
+                        }else{
+
+                            Tomas.setAttribute("selected","selected");
+                            typeActualizar.innerHTML  = "type Actual: " + Tomas.id;
+
+                        }
+            
+                        console.log("valores selectActualizar: ",selectActualizar.value);
+    
+                    }
+
+                } else {
+                    alert("Salio mal la consulta!!!");
+                }
+            }
+            
+            
+
+        }
+        
+       
+        xmlRequest.open("GET", `http://localhost:8000/device/${id}`, true)
+        xmlRequest.setRequestHeader("Content-Type", "application/json");
+        xmlRequest.send();
+
+    }
 
 // Agregar un diposotivo, agrega el dispositivo en la base de datos.
 
@@ -240,88 +322,7 @@ private actualizarDeviceState(id:number,state:boolean) {
     }
 
     
-    private consultaDevice(id:number) {
-        let xmlRequest = new XMLHttpRequest();
-
-        xmlRequest.onreadystatechange = () => {
-            if (xmlRequest.readyState == 4) {
-                if (xmlRequest.status == 200) {
-
-                    console.log("Llego la respuesta",xmlRequest.responseText); 
-                    
-                    let respuesta = xmlRequest.responseText;
-                    let datos:Array<Device> = JSON.parse(respuesta); 
-
-            
-                    for (let d of datos) {
-                        console.log("valores base:",d.type.toString());
-
-                        let nameActualizar =<HTMLInputElement> document.getElementById("nameActualizar");
-                        let typeName =<HTMLInputElement> document.getElementById("typeName");
-
-                        let descriptionActualizar = <HTMLInputElement>document.getElementById("descriptionActualizar");
-                        let typeDescription = <HTMLInputElement>document.getElementById("typeDescription");
-
-                        let typeActualizar = <HTMLInputElement>document.getElementById("typeActualizar");
-                        let selectActualizar = <HTMLInputElement>document.getElementById("selectActualizar");
-
-                        let luces = <HTMLInputElement>document.getElementById("luces");
-                        let Tomas = <HTMLInputElement>document.getElementById("Tomas");
-                        
-                      
-                        
-                        
-                        
-                       
-                        console.log("valores selectActualizar: ",selectActualizar.value);
-                        nameActualizar.value = d.name;
-                        descriptionActualizar.value = d.description;
-                        selectActualizar.value = d.type.toString();
-
-                        typeName.innerHTML = "Nombre Actual: " + d.name;
-                        typeDescription.innerHTML = "Descripcion Actual: " + d.description;
-
-                        if(d.type === 0){
-                            typeActualizar.value="luces";
-                           
-                        }else{
-                            typeActualizar.value="Tomas";
-
-                        }
-                        
-                       
-                        luces.removeAttribute("selected");
-                        Tomas.removeAttribute("selected");
-                       
-                        if(d.type === 0){
-                            luces.setAttribute("selected","selected");
-                            typeActualizar.innerHTML = "type Actual: " + luces.id;
-                        }else{
-
-                            Tomas.setAttribute("selected","selected");
-                            typeActualizar.innerHTML  = "type Actual: " + Tomas.id;
-
-                        }
-            
-                        console.log("valores selectActualizar: ",selectActualizar.value);
-    
-                    }
-
-                } else {
-                    alert("Salio mal la consulta!!!");
-                }
-            }
-            
-            
-
-        }
-        
-       
-        xmlRequest.open("GET", `http://localhost:8000/device/${id}`, true)
-        xmlRequest.setRequestHeader("Content-Type", "application/json");
-        xmlRequest.send();
-
-    }
+ 
 
 
 // ejecucion de eventos     
