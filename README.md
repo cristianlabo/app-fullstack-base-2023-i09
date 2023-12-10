@@ -159,16 +159,16 @@ Para la implementacion requerida se realizaron las siguientes tareas:
 
 De los archivos antes mencionados se detallan las siguientes cuestiones:
 
-index.html: se crearon los objetos necesarios para el ABM solicitado.                                                                      
-main.ts: se crearon los metodos necesarios para obtener, agregar, eliminar y actualizar dispositivos mediante peticiones al backend.
-index.js: se agregan los metodos necesarios para obtener, agregar,eliminar y actualizar dispositivos en la base de datos.
-device.ts: se creo la clase device con los atributos necesarios para guardar la informacion de los dispositivos.
+- index.html: se crearon los objetos necesarios para el ABM solicitado.                                                                      
+- main.ts: se crearon los metodos necesarios para obtener, agregar, eliminar y actualizar dispositivos mediante peticiones al backend.
+- index.js: se agregan los metodos necesarios para obtener, agregar,eliminar y actualizar dispositivos en la base de datos.
+- device.ts: se creo la clase device con los atributos necesarios para guardar la informacion de los dispositivos.
 
 
 Cuestiones a tener en cuenta:
 
 - No se realizaron validaciones para los datos de entrada a los modales correspondientes a agregar y actualizar dispositivos.
--
+
 - No se llego a implementar "dimerizar las luces o regular la apertura de cortinas", se entiende que seria modificar el campo "state" de la base de datos, luego agregar el objeto range(materialize) por cada dispositivo que cumpla con el campo "type" correspondiente, luego crear un evento asociado a este objeto y por ultimo agregar el metodo para actualizar el estado(frontend) medianteuna peticion del tipo PUT al backend para actualizar el dispositivo correspondeinte en la base de datos.
 
                                                                                    .
@@ -177,10 +177,10 @@ Cuestiones a tener en cuenta:
 
 ### Consultar dispositivos                                                                                         
 
-Para agregar un dispositivo desde el cliente web se siguieron los siguientes pasos:
+Para consultar los dispositivos desde el cliente web se siguieron los siguientes pasos:
 
--main.ts: crear el metodo "buscarDevices" que crea una lista de dispositivos. Para crear los dispositivos se comunica con el backend y consulta los dipositivos con el metodo GET.
--index.js: crear el metodo "GET /devices" que consulta los dispositivos de la base de datos.
+- main.ts: crear el metodo "buscarDevices" que crea una lista de dispositivos. Para crear los dispositivos se comunica con el backend y consulta los dipositivos con el metodo GET.
+- index.js: crear el metodo "GET /devices" que consulta los dispositivos de la base de datos.
 
 
 ### Frontend
@@ -198,9 +198,9 @@ Se creo el metodo GET en la ruta /devices el cual permite realizar consultar tod
 
 Para agregar un dispositivo desde el cliente web se siguieron los siguientes pasos:
 
--index.html: creacion de boton "agregar dispositivos".
--main.ts: crear el metodo "cargarDevice" que se crea un nuevo dispositivo comunicandose con el backend por medio del metodo POST.
--index.js: crear el metodo "post /device" que inserta un registro en la base de datos.
+- index.html: creacion de boton "agregar dispositivos".
+- main.ts: crear el metodo "cargarDevice" que se crea un nuevo dispositivo comunicandose con el backend por medio del metodo POST.
+- index.js: crear el metodo "post /device" que inserta un registro en la base de datos.
 
 
 ### Frontend
@@ -216,11 +216,11 @@ Se creo el metodo POST en la ruta /device el cual permite realizar un insert sob
 
 ### Eliminar un dispositivo
 
-Para agregar un dispositivo desde el cliente web se siguienron los siguientes pasos:
+Para eliminar un dispositivo desde el cliente web se siguieron los siguientes pasos:
 
--index.html: creacion de boton "Eliminar" por medio del metodo "buscar devices".
--main.ts: crear el metodo "eliminarDevice" que eliminar el  dispositivo comunicandose con el backend por medio del metodo DELETE.
--index.js: crear el metodo "delete /device/:id" que elimina un registro en la base de datos correspondiente al id pasado por parametro.
+- index.html: creacion de boton "Eliminar" por medio del metodo "eliminarDevice".
+- main.ts: crear el metodo "eliminarDevice" que elimina el  dispositivo comunicandose con el backend por medio del metodo DELETE.
+- index.js: crear el metodo "delete /device/:id" que elimina un registro en la base de datos correspondiente al id pasado por parametro.
 
 
 ### Frontend
@@ -236,12 +236,12 @@ Se creo el metodo "DELETE" en la ruta  "/device/:id"  el cual permite  eliminar 
 
 ### Actualizar un dispositivo
 
-Para agregar un dispositivo desde el cliente web se siguieron los siguientes pasos:
+Para actualizar un dispositivo desde el cliente web se siguieron los siguientes pasos:
 
--index.html: creacion de boton "editar" y  del switch "cb_***". 
--main.ts: crear el metodo  "buscarDevices" que consulta los datos del dispositivo a actualizar mediante el metodo GET y los muestra en el modal de actualizacion. Crea el metodo "actualizarDevice" para actualizar el dispositivo con los datos cargados en el modal, cuando se presiona el boton "actualizar dispositivo" mediante el metodo PUT.
+- index.html: creacion de boton "editar" y  del switch "cb_***". 
+- main.ts: crear el metodo  "buscarDevices" que consulta los datos del dispositivo a actualizar mediante el metodo GET y los muestra en el modal de actualizacion. Crea el metodo "actualizarDevice" para actualizar el dispositivo con los datos cargados en el modal, cuando se presiona el boton "actualizar dispositivo" mediante el metodo PUT.
 Por otro lado se crea el switch "cb_***" para actualizar el estado del dispositivo mediante el metodo "consultaDevice" que actualiza el estado de un dispositivo mediante el metodo PUT.
--index.js: crear el metodo "put /device" que actualiza el registro en la base de datos de los campos name, descripcion, state y type para el id ingresado por parametro.
+- index.js: crear el metodo "put /device" que actualiza el registro en la base de datos de los campos name, descripcion, state y type para el id ingresado por parametro.
 Crear el metodo "put /device/:id/:state" para actualizar el estado del disposotivo.
 
 
